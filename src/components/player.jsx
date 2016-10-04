@@ -1,5 +1,3 @@
-var Player = () => (
-  <div>
-    Player
-  </div>
+var Player = (props) => (
+  <audio controls autoPlay src={props.url}/>
 );
