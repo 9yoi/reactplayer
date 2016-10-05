@@ -2,7 +2,7 @@ var LibraryEntryView = (props) => {
 
   var clickSong = function () {
     console.log('clicked');
-    props.toggleSong(props.song.url);
+    props.toggleSong(props.song);
   };
 
   return (

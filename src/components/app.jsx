@@ -1,28 +1,56 @@
+
+
 var App = React.createClass ({
 
   getInitialState: function () {
     return {
-      currentSong: ''
+      currentSong: '',
+      songQueue: []
     }
   },
 
-  toggleSong: function (url) {
-    console.log(url);
-    this.setState({currentSong: url});
+  //works after the first rendering
+  componentDidMount: function() {
+    var context = this;
+    $('.audioPlayer').on('ended', function() {
+      //dequeue
+      var songQueue = context.state.songQueue;
+      var newSongQueue = songQueue.slice(1);
+      context.setState({
+        songQueue: newSongQueue,
+        currentSong: newSongQueue.length === 0 ? '' : newSongQueue[0]
+      })
+
+      //play new song
+    })
+  },
+  
+  //creates variables before the first mount (rendering)
+  componentWillMount: function() {
+    //this.songQueue = {}
+  },
+
+  toggleSong: function (song) {
+    var songQueue = this.state.songQueue;
+    songQueue.push(song);
+    console.log(songQueue);
+    this.setState({
+      currentSong: songQueue[0],
+      songQueue: songQueue
+    });
   },
 
   render: function () {
-    console.log(this.props.songs);
     return (
       <div className="container">
         <div className="player">
-          <Player url={this.state.currentSong}/>
+          <Player url={this.state.currentSong.url}/>
         </div>
         <div className="library">
           <Library songs={this.props.songs} toggleSong={this.toggleSong}/>
         </div>
         <div className="queue">
-          <Queue />
+          <Queue queue={this.state.songQueue}/>
         </div>
       </div>
     );
