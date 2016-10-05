@@ -19,5 +19,13 @@ li:hover {
 
 .library-title, .queue-title {
   display: inline-block;
-  width: 60%;
+  width: 80%;
+}
+
+.now-playing {
+  color: red;
+}
+
+audio {
+  width: 100%;
 }

@@ -20,7 +20,6 @@ var App = React.createClass ({
         songQueue: newSongQueue,
         currentSong: newSongQueue.length === 0 ? '' : newSongQueue[0]
       })
-
       //play new song
     })
   },
@@ -40,6 +39,16 @@ var App = React.createClass ({
     });
   },
 
+  dequeue: function (index) {
+    if (index !== 0) {
+      var songQueue = this.state.songQueue;
+      songQueue.splice(index,1);
+      this.setState({
+        songQueue: songQueue
+      })
+    }
+  },
+
   render: function () {
     return (
       <div className="container">
@@ -50,7 +59,7 @@ var App = React.createClass ({
           <Library songs={this.props.songs} toggleSong={this.toggleSong}/>
         </div>
         <div className="queue">
-          <Queue queue={this.state.songQueue}/>
+          <Queue queue={this.state.songQueue} dequeue={this.dequeue}/>
         </div>
       </div>
     );
