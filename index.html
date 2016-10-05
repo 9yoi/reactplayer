@@ -10,8 +10,61 @@
 <div id="app">
 <h1> I am a great music player </h1>
 </div>
-</body>
+
+<style>
+  .list-title {
+    display: inline-block;
+  }
+
+  .sublist {
+    display: none;
+  }
+
+  .list-title:hover .sublist {
+    display: block;
+    position: absolute;
+  }
+
+  .drop-down {
+    height:1000px;
+    display: none;
+  }
   
+  .back-to-top {
+    bottom: 0px;
+    right: 0px;
+    position: fixed;
+  }
+</style>
+<div class="drop-down">
+  <ul>
+    <li class="list-title"> a
+      <ul class="sublist">
+        <li>a1</li>
+        <li>a2</li>
+        <li>a3</li>
+      </ul>
+    </li>
+    <li class="list-title"> b
+      <ul class="sublist">
+        <li>b1</li>
+        <li>b2</li>
+        <li>b3</li>
+      </ul>
+    </li>
+    <li class="list-title">c</li>
+    <li class="list-title">d</li>
+  </ul>
+</div>
+<div class="back-to-top">Back To Top</div>
+</body>
+  <script>
+  $( document ).ready(function() {
+    $('.back-to-top').on('click', function () {
+      $('.drop-down').fadeOut();
+    });
+  })
+  </script>
   <script src="./dist/src/components/library.js"></script>
   <script src="./dist/src/components/libraryEntry.js"></script>
   <script src="./dist/src/components/player.js"></script>

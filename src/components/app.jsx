@@ -22,6 +22,8 @@ var App = React.createClass ({
       })
       //play new song
     })
+
+    this.dequeueBool = false;
   },
   
   //creates variables before the first mount (rendering)
@@ -37,15 +39,34 @@ var App = React.createClass ({
       currentSong: songQueue[0],
       songQueue: songQueue
     });
+
+  },
+
+  componentDidUpdate: function() {
+    if (!this.dequeueBool) {
+      var lastIndex = this.state.songQueue.length-1;
+      $('.' + lastIndex + '.queue-container').css('display', 'none');
+      $('.' + lastIndex + '.queue-container').fadeIn('slow');
+    }
+    else {
+      this.dequeueBool = false;
+    }
   },
 
   dequeue: function (index) {
+    this.dequeueBool = true;
+    var context = this;
     if (index !== 0) {
-      var songQueue = this.state.songQueue;
-      songQueue.splice(index,1);
-      this.setState({
-        songQueue: songQueue
-      })
+      $('.' + index + '.queue-container').fadeOut('slow', function() {
+        var songQueue = context.state.songQueue;
+        songQueue.splice(index,1);
+        context.setState({
+          songQueue: songQueue
+        })
+        //FADE OUT
+        $('.' + index + '.queue-container').css('display','block');
+      });
+
     }
   },
 
